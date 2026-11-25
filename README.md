@@ -1,2 +1,12 @@
-# makwa-pulse-enterprise-intelligence
-MAKWA PULSE V3–V10 is an enterprise IT intelligence platform built with Python and Streamlit. It combines executive dashboards, IT operations, SLA monitoring, cloud cost intelligence, AI-assisted insights, workflow automation, integration management, security governance and predictive operations to support smarter, data-driven business decisions.
+# Connector implementation guide
+
+The V6 module supports validated CSV import and records pending connector configuration only. It intentionally does not make network calls.
+
+For an approved vendor connector:
+- Use the vendor-supported SDK/API and a strict host allowlist.
+- Use OAuth/service-account scopes with least privilege.
+- Store credentials in a managed secrets service, never in source code or uploaded CSV.
+- Add pagination, retries, rate limits, timeouts and TLS verification.
+- Validate schemas and preserve source timestamps.
+- Redact tokens and personal data from logs.
+- Test with synthetic fixtures and obtain security approval before activation.
