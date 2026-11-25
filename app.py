@@ -15,17 +15,101 @@ st.set_page_config(page_title="MAKWA PULSE V3–V10", page_icon="◈", layout="w
 
 st.markdown("""
 <style>
-:root{--bg:#07111f;--panel:#101f33;--line:#23415f;--cyan:#28d7ff;--muted:#91a9c4}
-.stApp{background:radial-gradient(circle at 80% 0%,#102d4a 0%,#07111f 42%);color:#edf6ff}
-section[data-testid="stSidebar"]{background:#09192b;border-right:1px solid #1d3855}
-.block-container{padding-top:1.1rem;padding-bottom:2rem}
-div[data-testid="stMetric"]{background:linear-gradient(145deg,#122941,#0c1b2d);border:1px solid #285071;padding:14px;border-radius:13px;box-shadow:0 0 18px #0b9ac018}
-div[data-testid="stDataFrame"]{border:1px solid #23415f;border-radius:10px}
-.stButton>button,.stDownloadButton>button{border:1px solid #258db8;border-radius:9px;background:linear-gradient(100deg,#123a5b,#12506a);color:#effaff}
-.stButton>button:hover{border-color:#4de2ff;color:white;box-shadow:0 0 15px #27cfff55}
-h1,h2,h3{letter-spacing:.2px}
-.pulse-sub{color:#91a9c4;font-size:.9rem}
-.pulse-card{background:linear-gradient(145deg,#122941dd,#0b1b2cdd);border:1px solid #244867;border-radius:14px;padding:16px}
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+:root{
+ --bg:#060d1b;--panel:rgba(15,29,52,.78);--panel-strong:#101e36;
+ --line:rgba(103,157,207,.20);--cyan:#55e6ff;--blue:#438dff;
+ --purple:#a78bfa;--muted:#91a6c5;--text:#eef5ff;
+}
+html,body,[class*="css"]{font-family:'DM Sans',sans-serif}
+.stApp{
+ background:
+ radial-gradient(ellipse at 82% -8%,rgba(49,126,222,.22),transparent 34%),
+ radial-gradient(ellipse at 4% 30%,rgba(105,71,190,.14),transparent 30%),
+ linear-gradient(145deg,#050b17 0%,#09152a 52%,#07101f 100%);
+ color:var(--text)
+}
+.stApp:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.15;
+ background-image:linear-gradient(rgba(120,170,220,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(120,170,220,.06) 1px,transparent 1px);
+ background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 80%)}
+.block-container{max-width:1600px;padding-top:2rem;padding-bottom:3rem}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif!important;letter-spacing:-.035em;color:#f4f8ff}
+h1{font-size:2.15rem!important;font-weight:700!important}
+h2{font-size:1.55rem!important} h3{font-size:1.15rem!important}
+p,li,label,.stMarkdown{color:#d9e6f7}
+small,.pulse-sub,.stCaption{color:var(--muted)!important}
+section[data-testid="stSidebar"]{
+ background:linear-gradient(180deg,rgba(10,22,42,.97),rgba(7,14,29,.98));
+ border-right:1px solid rgba(100,165,220,.18)
+}
+section[data-testid="stSidebar"]>div{padding-top:1.35rem}
+section[data-testid="stSidebar"] [data-testid="stRadio"] label{
+ padding:7px 10px;border-radius:10px;transition:all .18s ease
+}
+section[data-testid="stSidebar"] [data-testid="stRadio"] label:hover{
+ background:rgba(67,141,255,.12);color:#fff
+}
+section[data-testid="stSidebar"] [data-testid="stRadio"] [aria-checked="true"]{
+ background:linear-gradient(90deg,rgba(48,137,235,.23),rgba(123,91,219,.12));
+ border:1px solid rgba(85,230,255,.22)
+}
+div[data-testid="stMetric"]{
+ background:linear-gradient(145deg,rgba(22,43,72,.88),rgba(10,23,43,.82));
+ border:1px solid rgba(91,169,224,.24);padding:17px 18px;border-radius:17px;
+ box-shadow:0 12px 34px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.045);
+ backdrop-filter:blur(16px);min-height:112px
+}
+div[data-testid="stMetric"] label{color:#9eb4d1!important;font-size:.78rem!important;text-transform:uppercase;letter-spacing:.09em}
+div[data-testid="stMetric"] [data-testid="stMetricValue"]{font-family:'Space Grotesk',sans-serif;color:#f4f9ff;font-weight:700}
+div[data-testid="stMetric"] [data-testid="stMetricDelta"]{font-size:.78rem}
+div[data-testid="stDataFrame"],div[data-testid="stTable"]{
+ border:1px solid var(--line);border-radius:14px;overflow:hidden;background:rgba(10,22,40,.55)
+}
+.stButton>button,.stDownloadButton>button,[data-testid="stFormSubmitButton"]>button{
+ border:1px solid rgba(85,230,255,.42);border-radius:11px;
+ background:linear-gradient(105deg,#1765a8,#2856a8 58%,#6248a5);
+ color:#fff;font-weight:700;min-height:2.65rem;
+ box-shadow:0 7px 22px rgba(26,111,190,.17);transition:all .2s ease
+}
+.stButton>button:hover,.stDownloadButton>button:hover,[data-testid="stFormSubmitButton"]>button:hover{
+ border-color:#8af0ff;transform:translateY(-1px);
+ box-shadow:0 0 0 1px rgba(85,230,255,.16),0 10px 28px rgba(45,151,230,.25);color:white
+}
+button[kind="secondary"]{background:rgba(18,36,62,.8)!important}
+input,textarea,[data-baseweb="select"]>div{
+ background:rgba(10,22,41,.88)!important;border-color:rgba(105,160,210,.28)!important;border-radius:10px!important;color:#f2f7ff!important
+}
+[data-testid="stFileUploader"] section{
+ background:rgba(13,29,51,.62);border:1px dashed rgba(85,230,255,.35);border-radius:14px
+}
+[data-testid="stExpander"],div[data-testid="stForm"]{
+ background:rgba(13,27,48,.58);border:1px solid var(--line);border-radius:15px
+}
+hr{border-color:rgba(112,158,204,.18)!important}
+.pulse-sub{color:#9db4d2;font-size:.93rem;margin-top:-.5rem}
+.pulse-brand{
+ display:flex;align-items:center;gap:12px;padding:13px 15px;margin:0 0 20px;
+ border:1px solid rgba(85,230,255,.22);border-radius:16px;
+ background:linear-gradient(110deg,rgba(21,62,100,.52),rgba(38,33,82,.42));
+ box-shadow:0 10px 32px rgba(0,0,0,.18);backdrop-filter:blur(16px)
+}
+.pulse-brand-mark{
+ width:38px;height:38px;display:grid;place-items:center;border-radius:12px;
+ background:linear-gradient(140deg,#35d9f2,#397eff 58%,#9466ed);
+ color:#041326;font-size:1.25rem;font-weight:900;box-shadow:0 0 22px rgba(67,171,255,.32)
+}
+.pulse-brand-name{font-family:'Space Grotesk',sans-serif;font-size:1.08rem;font-weight:700;color:#fff;letter-spacing:.04em}
+.pulse-brand-meta{font-size:.72rem;color:#9eb7d5;letter-spacing:.12em;text-transform:uppercase}
+.pulse-chip{display:inline-block;border:1px solid rgba(85,230,255,.26);background:rgba(27,104,145,.16);color:#8beaff;padding:5px 10px;border-radius:99px;font-size:.72rem;font-weight:700;letter-spacing:.07em}
+.pulse-hero{
+ padding:21px 23px;border-radius:19px;margin:0 0 20px;
+ background:linear-gradient(110deg,rgba(19,54,88,.82),rgba(25,35,74,.72) 58%,rgba(60,39,99,.55));
+ border:1px solid rgba(109,180,232,.24);box-shadow:0 18px 45px rgba(0,0,0,.2);backdrop-filter:blur(18px)
+}
+.pulse-hero-title{font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;color:#f5f9ff}
+.pulse-hero-copy{color:#a9bfd9;font-size:.9rem;margin-top:4px}
+.stAlert{border-radius:13px}
+@media(max-width:800px){.block-container{padding:1rem 1rem 2rem}h1{font-size:1.7rem!important}.pulse-hero{padding:16px}}
 </style>
 """, unsafe_allow_html=True)
 
@@ -93,8 +177,14 @@ def audit(action, detail):
                   (datetime.now().isoformat(timespec="seconds"),st.session_state.get("user","unknown"),action,str(detail)[:500]))
 
 def login():
-    st.title("◈ MAKWA PULSE")
-    st.subheader("V3–V10 Enterprise Intelligence & Automation Console")
+    st.markdown("""
+    <div class="pulse-brand">
+      <div class="pulse-brand-mark">◈</div>
+      <div><div class="pulse-brand-name">MAKWA PULSE</div>
+      <div class="pulse-brand-meta">Enterprise intelligence console · V3–V10</div></div>
+    </div>
+    """, unsafe_allow_html=True)
+    st.subheader("Welcome to the command console")
     st.info("Independent concept demonstration for discussion with MakwaIT management and engineering teams. Not an official MakwaIT product and not connected to production systems.")
     with st.form("login"):
         username=st.text_input("Username","executive")
@@ -111,9 +201,14 @@ if "user" not in st.session_state:
     login(); st.stop()
 
 role=st.session_state.role
-st.sidebar.markdown("# ◈ MAKWA PULSE")
-st.sidebar.caption("V3–V10 · ENTERPRISE INTELLIGENCE")
-st.sidebar.success(f"Signed in · {role}")
+st.sidebar.markdown("""
+<div class="pulse-brand" style="padding:12px 10px;margin-bottom:14px">
+  <div class="pulse-brand-mark">◈</div>
+  <div><div class="pulse-brand-name">MAKWA PULSE</div>
+  <div class="pulse-brand-meta">V3–V10 platform</div></div>
+</div>
+""",unsafe_allow_html=True)
+st.sidebar.markdown(f'<span class="pulse-chip">● &nbsp;{role.upper()} SESSION</span>',unsafe_allow_html=True)
 if st.sidebar.button("Sign out"):
     st.session_state.clear(); st.rerun()
 page=st.sidebar.radio("PLATFORM MODULES",NAV)
@@ -122,8 +217,15 @@ st.sidebar.caption("Environment: DEMO / SYNTHETIC DATA")
 st.sidebar.caption("No production systems connected.")
 
 df=pd.read_sql_query("SELECT * FROM telemetry ORDER BY timestamp",db(),parse_dates=["timestamp"])
-st.title("◈ MAKWA PULSE")
-st.markdown("<div class='pulse-sub'>Enterprise service intelligence · Integrated V3–V10 concept build</div>",unsafe_allow_html=True)
+st.markdown("""
+<div class="pulse-hero">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap">
+    <div><div class="pulse-hero-title">MAKWA PULSE <span style="color:#65e7ff">/</span> Command Interface</div>
+    <div class="pulse-hero-copy">Enterprise service intelligence · Integrated V3–V10 concept build</div></div>
+    <span class="pulse-chip">● &nbsp;DEMO ENVIRONMENT</span>
+  </div>
+</div>
+""",unsafe_allow_html=True)
 
 a,b,c=st.columns(3)
 with a: client=st.selectbox("Client",["All clients"]+sorted(df.client.unique().tolist()))
