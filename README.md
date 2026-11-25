@@ -1,41 +1,34 @@
-# MAKWA PULSE V3–V10 — Neon Glass Navy Blue Edition
+# MAKWA PULSE — Production Foundation Stage 1
 
-A redesigned Streamlit concept console with a premium dark SaaS interface.
+This is a separate production-foundation build. It is not connected to Makwa IT systems. Do not load Makwa IT confidential or personal information until written authorisation, approved scope, access permissions and security review are complete.
 
-## Visual redesign
-- Deep navy layered gradient background with a subtle grid texture.
-- Glass-style panels, translucent surfaces and soft shadows.
-- Cyan, electric blue and purple accent palette.
-- Branded sidebar, command-console hero header and role indicator.
-- Refined KPI cards, buttons, forms, tables and responsive spacing.
-- Existing V3–V10 modules and workflows retained.
+## Included
+- Supabase Auth email/password sign-in (no hard-coded demo credentials)
+- PostgreSQL schema for user profiles, services, incidents and audit events
+- Row Level Security starter policies
+- Role-aware Streamlit workspace
+- Service register, incident creation and status updates
+- Restricted audit-trail view
+- Neon Glass Navy Blue interface
 
-## Run locally
-1. Install Python 3.10 or later.
-2. Open a terminal in this folder.
-3. Run `pip install -r requirements.txt`.
-4. Run `streamlit run app.py`.
+## Setup
+1. Create a dedicated Supabase development project.
+2. Run `supabase/schema.sql` in Supabase SQL Editor.
+3. Create a test user in Supabase Authentication.
+4. Copy that user's UUID and create a profile using the SQL comment at the end of `schema.sql`.
+5. Copy `.streamlit/secrets.toml.example` to `.streamlit/secrets.toml` and enter the Supabase URL and anon/publishable key. Never commit secrets.
+6. Install and run:
 
-## Demo sign-in
-- `executive` / `PulseDemo!2026`
-- `engineer` / `PulseDemo!2026`
-- `analyst` / `PulseDemo!2026`
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
 
-These credentials are hard-coded for local evaluation only. Replace them before any deployment beyond a controlled demo.
+For Streamlit Community Cloud, add the same values in App -> Settings -> Secrets.
 
-## Included modules
-- V3 Advanced Intelligence: operational KPI comparisons and service intelligence.
-- V4 AI Intelligence Engine: explainable deterministic rules analyst (not a live LLM).
-- V5 Automation & Workflows: local follow-up task register and simulated alert candidates.
-- V6 Integration Hub: validated CSV ingestion and pending connector registry.
-- V7 Security & Governance: local audit trail and governance notes.
-- V8 Predictive Operations: heuristic risk indicators and observed trend views.
-- V9 Enterprise Command: multi-client portfolio view and local incident register.
-- V10 Platform Control: readiness view and CSV backups/exports.
-- Retained V2 capability areas: executive overview, IT operations, SLA intelligence, cloud cost intelligence, customer experience and reports/data.
+## Before production
+Obtain written Makwa IT authorisation; confirm the data owner, hosting and data-residency requirements; review all RLS policies; implement MFA/SSO and account lifecycle controls; test backups/restores; perform security and privacy assessments; establish monitoring and incident response; and complete user acceptance testing.
 
-## Important demonstration boundaries
-The preloaded client labels, telemetry, costs, availability and satisfaction are synthetic. Imported CSV data is the user's responsibility. Risk scores are heuristics. No external API, ticketing, email, SMS, live LLM or remediation integration is active. Local SQLite is used. The app is not an official MakwaIT product and is not connected to MakwaIT production systems.
+The dashboard reads database records only. It does not create synthetic telemetry. This starter is not a security certification, POPIA compliance guarantee, or completed production deployment. The audit table is an application-level audit trail, not tamper-proof infrastructure logging. The starter policies need security review before organisational use.
 
-## Production hardening required
-Before production use, implement approved SSO/OIDC and MFA, managed secrets, HTTPS, secure session controls, role and tenant-level authorisation, managed database, encryption, audit controls, dependency scanning, threat modelling, backup/restore, retention policies, API allowlists, rate limits, monitoring and penetration testing. Do not use demo credentials in production.
+Do not put a Supabase service-role key in Streamlit secrets or client code.
